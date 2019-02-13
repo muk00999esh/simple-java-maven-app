@@ -15,35 +15,23 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-            post {
-                always {
-                      emailext (
-      subject: "Deployed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]': Check console output at '${env.BUILD_URL}' [${env.BUILD_NUMBER}]",
-      to: "muk00999esh@gmail.com"
-    )
-                }
-            }
         }
-        stage('Deliver') { 
-            steps {
+			stage("Stage with input") {
 				steps {
-      
-        script {
-            def userInput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
-            echo 'userInput: ' + userInput
+					
+					script {
+						def userInput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
+						echo 'userInput: ' + userInput
 
-            if(userInput == true) {
-                sh './jenkins/scripts/deliver.sh' 
-            } else {
-                // not do action
-                echo "Action was aborted."
-            }
+						if(userInput == true) {
+							sh './jenkins/scripts/deliver.sh'
+						} else {
+							// not do action
+							echo "Action was aborted."
+						}
 
-        }    
-    }
-                
-            }
-        }
+					}    
+				}  
+			}
     }
 }
