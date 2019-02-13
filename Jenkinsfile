@@ -4,7 +4,7 @@ pipeline {
 
 			stage("Stage with input") {
 				steps {
-					echo '${env.BUILD_URL}/input'
+					echo "${env.BUILD_URL}/input"
 					script {
 						emailext (
 								subject: "Deployed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
