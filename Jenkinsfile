@@ -17,7 +17,11 @@ pipeline {
             }
             post {
                 always {
-                    mail bcc: '', body: "<b>Example</b><br>\n\<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "mukeshcse09@gmail.com";
+                      emailext (
+      subject: "Deployed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      body: "DEPLOYED VERSION '${version}': Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]': Check console output at '${env.BUILD_URL}' [${env.BUILD_NUMBER}]",
+      to: "mukeshcse09@gmail.com"
+    )
                 }
             }
         }
