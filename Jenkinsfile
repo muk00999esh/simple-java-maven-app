@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     stages {
 
 			stage("Stage with input") {
