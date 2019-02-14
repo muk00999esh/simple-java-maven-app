@@ -1,5 +1,8 @@
 pipeline {
     agent any
+     triggers {
+        pollSCM('') //Empty quotes tells it to build on a push
+    }
     stages {
 
 			stage("Stage with input") {
