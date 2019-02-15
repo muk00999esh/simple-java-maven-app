@@ -2,6 +2,7 @@ pipeline {
     agent any
     stages {
 
+	    
 			stage("Stage with input") {
 				steps {
 					echo "${env.BUILD_URL}/input"
